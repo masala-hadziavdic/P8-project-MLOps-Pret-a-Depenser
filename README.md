@@ -4,8 +4,8 @@ emoji: "💻"
 colorFrom: "blue"
 colorTo: "green"
 sdk: "docker"
-app_file: "Dockerfile"
 pinned: false
+short_description: '"Prêt à dépenser" est une société financière '
 ---
 
 # 💻 P8-project-MLOps-Pret-a-Depenser
