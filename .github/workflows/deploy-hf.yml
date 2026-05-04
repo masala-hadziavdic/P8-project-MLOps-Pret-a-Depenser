@@ -1,0 +1,29 @@
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+
+          git clone https://huggingface.co/spaces/amely188/P8-project-MLOps-Pret-a-Depenser
+          cd P8-project-MLOps-Pret-a-Depenser
+
+          cp -r ../* .
+
+          git add .
+          git commit -m "auto deploy from GitHub"
+          git push https://amely188:$HF_TOKEN@huggingface.co/spaces/amely188/P8-project-MLOps-Pret-a-Depenser main
