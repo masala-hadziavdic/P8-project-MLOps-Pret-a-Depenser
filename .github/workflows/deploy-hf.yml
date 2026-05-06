@@ -1,4 +1,4 @@
-name: Deploy to Hugging Face Space
+name: Deploy to Hugging Face
 
 on:
   push:
@@ -12,18 +12,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Push to Hugging Face Space
+      - name: Push to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
 
-          git clone https://huggingface.co/spaces/amely188/P8-project-MLOps-Pret-a-Depenser
-          cd P8-project-MLOps-Pret-a-Depenser
+          git clone https://huggingface.co/spaces/amely188/P8-project-MLOps-Pret-a-Depenser hf-space
+          cd hf-space
 
-          cp -r ../* .
+          rsync -av --exclude='.git' ../ .
 
           git add .
-          git commit -m "auto deploy from GitHub"
+          git commit -m "auto deploy"
           git push https://amely188:$HF_TOKEN@huggingface.co/spaces/amely188/P8-project-MLOps-Pret-a-Depenser main
